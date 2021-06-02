@@ -1,2 +1,2 @@
 # Howard-Discord-Bot
-Discord Bot experiment written in Javascript by Pat Forbeck
+Discord Bot experiment written in JS by Pat Forbeck
