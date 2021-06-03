@@ -32,7 +32,7 @@ client.on('message', msg => { // Bot sees a message
 		client.commands.get(command).execute(msg, args); // Attemps to retrieve and execute the file associated with the command
 	} catch (error) {
 		console.error(error);
-		msg.reply('there was an error trying to execute that command!'); // Cannot find command and replies with 'nah'.
+		msg.reply('There was an error trying to execute that command!'); // Cannot find command and replies with 'nah'.
 	}
 });
 
