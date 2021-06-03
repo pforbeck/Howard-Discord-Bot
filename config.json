@@ -1,4 +1,8 @@
 {
+<<<<<<< HEAD
     "BOT_TOKEN": "NzA4ODQzMjkzMDkzNjU4NjI0.XrdPwg.yWTWSC9hROUnmWBHjc8sfLQYJNA",
+=======
+    "BOT_TOKEN": "",
+>>>>>>> 2d70336af911602fdbead1eb2a15a27affaeeef9
     "PREFIX": "!"
 }
