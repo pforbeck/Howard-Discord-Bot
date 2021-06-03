@@ -28,15 +28,11 @@ client.on('message', msg => { // Bot sees a message
     const args = msg.content.slice(config.PREFIX.length).trim().split(/ +/); // Trims the prefix
 	const command = args.shift().toLowerCase(); // Makes it lowercase and names the altered message 'command'.
 
-    if (!client.commands.has(command)){ // Checks for command
-        msg.reply('nah'); // Cannot find command and replies with 'nah'.
-    }
-
     try {
 		client.commands.get(command).execute(msg, args); // Attemps to retrieve and execute the file associated with the command
 	} catch (error) {
 		console.error(error);
-		msg.reply('there was an error trying to execute that command!');
+		msg.reply('there was an error trying to execute that command!'); // Cannot find command and replies with 'nah'.
 	}
 });
 
