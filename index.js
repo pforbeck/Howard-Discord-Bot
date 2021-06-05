@@ -1,5 +1,6 @@
 const fs = require('fs')
-const Discord = require("discord.js");
+const Discord = require("discord.js"); // A JS implementation of the Discord API
+var shell = require('shelljs'); // To execute shell commands
 const config = require("./config.json"); // Handles private variables
 
 const client = new Discord.Client();
@@ -24,7 +25,12 @@ for(const file of commandFiles){ // Indexes the ".js" files findable so that the
 // Code for calling commands (user says ping, we say pong)
 client.on('message', msg => { // Bot sees a message
   if (msg.content == "!startmc"){
-    client.commands.get("!startmc").execute(msg, args);
+    msg.reply("MC Server is starting!");
+    shell.exec('bash -c /home/pat/git-projects/Howard-Discord-Bot/commands/startmc.sh')
+  }
+  if (msg.content == "!stopmc"){
+    msg.reply("MC Server is dead...");
+    shell.exec('bash -c /home/pat/git-projects/Howard-Discord-Bot/commands/stopmc.sh')
   }
 
   if (!msg.content.startsWith(config.PREFIX) || msg.author.bot) return; // Checks that message has prefix and does not originate from the bot

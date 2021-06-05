@@ -3,6 +3,7 @@
     "discord.js": "^12.5.3",
     "fs": "0.0.1-security",
     "os": "^0.1.1",
-    "random-puppy": "^1.1.0"
+    "random-puppy": "^1.1.0",
+    "shelljs": "^0.8.4"
   }
 }
