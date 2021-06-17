@@ -37,4 +37,5 @@
 
 config.json
 ./node_modules
-commands/minecraft.sh
+commands/stopmc.sh
+commands/startmc.sh
