@@ -1,6 +1,6 @@
-const fs = require('fs')
+const fs = require('fs');
 const Discord = require("discord.js"); // A JS implementation of the Discord API
-var shell = require('shelljs'); // To execute shell commands
+const shell = require('shelljs'); // To execute shell commands
 const config = require("./config.json"); // Handles private variables
 
 const client = new Discord.Client();
