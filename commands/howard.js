@@ -42,9 +42,6 @@ module.exports = {
 		"./howards/howard_over_it.jpg",
 		"./howards/howard_stressed.png",]
 		var responses = ["in your mouth ", "on your face ", "down your throat ", "in your hands", "on your forehead ", "etc... "];
-		var str1 = "howard deez nutz "
-		var response = str1.concat(responses[int2]);
-		msg.reply(response, {files: [howard[int1]]});
-		console.log(howard[int2])
+		msg.reply("howard deez nutz " + responses[int2], {files: [howard[int1]]});
 	},
 };
