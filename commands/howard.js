@@ -2,7 +2,7 @@ module.exports = {
 	name: 'howard',
 	description: 'howard deez nutz!',
 	execute(msg) {
-		var int1 = (Math.random() * (35 - 0 + 1) ) << 0 // For random images
+		var int1 = (Math.random() * (36 - 0 + 1) ) << 0 // For random images
 		var int2 = (Math.random() * (5 - 0 + 1) ) << 0 // For random responses
 		var howard = [
 		"./howards/Howard_Bonk_2.png",
