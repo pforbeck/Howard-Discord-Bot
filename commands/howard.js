@@ -2,8 +2,6 @@ module.exports = {
 	name: 'howard',
 	description: 'howard deez nutz!',
 	execute(msg) {
-		var int1 = (Math.random() * (36 - 0 + 1) ) << 0 // For random images
-		var int2 = (Math.random() * (5 - 0 + 1) ) << 0 // For random responses
 		var howard = [
 		"./howards/Howard_Bonk_2.png",
 		"./howards/Howard_Bonk.png",
@@ -42,6 +40,10 @@ module.exports = {
 		"./howards/howard_over_it.jpg",
 		"./howards/howard_stressed.png",]
 		var responses = ["in your mouth ", "on your face ", "down your throat ", "in your hands", "on your forehead ", "etc... "];
+
+		var int1 = (Math.random() * (howard.length - 0 + 1) ) << 0 // For random images
+		var int2 = (Math.random() * (responses.length - 0 + 1) ) << 0 // For random responses
+
 		msg.reply("howard deez nutz " + responses[int2], {files: [howard[int1]]});
 	},
 };

@@ -12,7 +12,7 @@ client.on('ready', () => { // Bot is ready to use
     console.log(`Logged in as ${client.user.tag}!`);
   });
 
-client.on("error", (err) => { // Bot is dead (sadge)
+client.on('error', (err) => { // Bot is dead (sadge)
     console.error(err);
 });
 
