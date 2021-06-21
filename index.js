@@ -6,57 +6,75 @@ const config = require("./config.json"); // Handles private variables
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
 
-client.login(config.BOT_TOKEN); // Logs the bot in
+// Logs the bot in
+client.login(config.BOT_TOKEN); 
 
-client.on('ready', () => { // Bot is ready to use
+// Bot is ready to use
+client.on('ready', () => { 
     console.log(`Logged in as ${client.user.tag}!`);
   });
 
-client.on('error', (err) => { // Bot is dead (sadge)
+// Bot is dead (sadge)
+client.on('error', (err) => { 
     console.error(err);
 });
 
 // Actual bot code below
 
-const commandFiles = fs.readdirSync('./commands/').filter(file => file.endsWith('.js')) // Finds files in the command folder that end with ".js"
-for(const file of commandFiles){ // Indexes the ".js" files findable so that they can be executed
-   const command = require(`./commands/${file}`); // Checks commands folder for corresponding file
+// Finds files in the command folder that end with ".js"
+const commandFiles = fs.readdirSync('./commands/').filter(file => file.endsWith('.js')) 
+// Indexes the ".js" files findable so that they can be executed
+for(const file of commandFiles){
+  // Checks commands folder for corresponding file
+   const command = require(`./commands/${file}`); 
    client.commands.set(command.name, command);
 }
 
 // Code for calling commands (user says ping, we say pong)
-client.on('message', msg => { // Bot sees a message
+client.on('message', msg => {
 
-  if (msg.content == "!startmc"){ // Starts MC Server
+  // Starts MC Server
+  if (msg.content == "!startmc"){ 
     msg.reply("MC Server is starting!");
     shell.exec('bash -c /home/pat/git-projects/Howard-Discord-Bot/commands/startmc.sh')
   }
 
-  if (msg.content == "!stopmc"){ // Stops MC Server
+  // Stops MC Server
+  if (msg.content == "!stopmc"){
     msg.reply("MC Server is dead...");
     shell.exec('bash -c /home/pat/git-projects/Howard-Discord-Bot/commands/stopmc.sh')
   }
 
-  if (!msg.content.startsWith(config.PREFIX) || msg.author.bot) return; // Checks that message has prefix and does not originate from the bot
+  // Checks that the incoming message has the specified prefix and does not originate from the bot
+  if (!msg.content.startsWith(config.PREFIX) || msg.author.bot) return;
 
-    const message = msg.content.toLowerCase(); // Makes incoming sentence lowercase
-    const args = msg.content.slice(config.PREFIX.length).trim().split(/ +/); // Makes the sentence an array of words
+    // Makes incoming sentence lowercase and makes the sentence an array of words
+    const message = msg.content.toLowerCase(); 
+    const args = msg.content.slice(config.PREFIX.length).trim().split(/ +/); // Makes 
 
-    for (var i = 0; i < args.length; i++) { // Iterates through the array of words
-      args[i] = args[i].toLowerCase(); // Makes the word lowercase
-      console.log(args[i]) // For debugging
-      args[i] = args[i].replace(/[^0-9a-z]/gi, ""); // Removes non-alphanumeric characters
-      args[i] = args[i].replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,""); // Removes punctuation
+    // Iterates through the array of words
+    for (var i = 0; i < args.length; i++) { 
+      // Makes the word lowercase, removes non-alphanumeric characters, and removes punctuation
+      args[i] = args[i].toLowerCase(); 
+      // For debugging
+      console.log(args[i])
+      args[i] = args[i].replace(/[^0-9a-z]/gi, ""); 
+      args[i] = args[i].replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
       
       try {
-        client.commands.get(args[i]).execute(msg, args); // Attemps to retrieve and execute a one word file associated with the command
-        console.log("- yea"); // It worked
+        // Attemps to retrieve and execute a one word file associated with the command
+        client.commands.get(args[i]).execute(msg, args);
+        // It worked
+        console.log("- yea");
       } catch (error) {
         try {
-          client.commands.get(args[i] + " " + args[i+1]).execute(msg, args); // Attemps to retrieve and execute a two word file associated with the command
-          console.log("- yea"); // It worked
+          // Attemps to retrieve and execute a two word file associated with the command
+          client.commands.get(args[i] + " " + args[i+1]).execute(msg, args);
+          // It worked
+          console.log("- yea");
         } catch (error) {
-          console.log("- nah"); // The word doesn't have a corresponding ".js" file or an exception occured
+          // The word doesn't have a corresponding ".js" file or an exception occured
+          console.log("- nah");
         }
       }
     }
