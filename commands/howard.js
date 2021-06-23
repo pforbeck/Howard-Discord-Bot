@@ -38,8 +38,7 @@ module.exports = {
 		"./command_additional_files/howards/sadge.png",
 		"./command_additional_files/howards/Wisconsin_Howard.png",
 		"./command_additional_files/howards/howard_over_it.jpg",
-		"./command_additional_files/howards/howard_stressed.png",
-		"./command_additional_files/howards/howard_with_gun.png"]
+		"./command_additional_files/howards/howard_stressed.png"]
 		var responses = ["in your mouth ", "on your face ", "down your throat ", "in your hands", "on your forehead ", "etc... "];
 
 		var int1 = (Math.random() * (responses.length) ) << 0 // For random responses
