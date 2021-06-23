@@ -9,10 +9,10 @@ module.exports = {
 		"./command_additional_files/horny/b82.png",
 		"./command_additional_files/horny/bonk.png", 
 		"./command_additional_files/horny/e74.png", 
-		"./command_additional_files/horny/efa.png"];
+		"./command_additional_files/horny/efa.jpg"];
 
 		var int = (Math.random() * (horny.length) ) << 0
 		
-		msg.channel.send("bonk go to horny jail", {files: [who_asked[int]]});
+		msg.channel.send("bonk go to horny jail", {files: [horny[int]]});
 	},
 };
