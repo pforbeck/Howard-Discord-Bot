@@ -1,7 +1,7 @@
 module.exports = {
 	name: 'oh really',
-	description: 'yes',
+	description: 'ohh really',
 	execute(msg) {
-		msg.reply("yes");
+		msg.channel.send("yes");
 	},
 };
