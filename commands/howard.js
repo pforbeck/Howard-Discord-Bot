@@ -1,6 +1,6 @@
 module.exports = {
 	name: 'howard',
-	description: 'howard deez nutz!',
+	description: 'howard',
 	execute(msg) {
 		var howard = [
 		"./command_additional_files/howards/Howard_Bonk_2.png",
@@ -41,9 +41,9 @@ module.exports = {
 		"./command_additional_files/howards/howard_stressed.png",]
 		var responses = ["in your mouth ", "on your face ", "down your throat ", "in your hands", "on your forehead ", "etc... "];
 
-		var int1 = (Math.random() * (responses.length - 0 + 1) ) << 0 // For random responses
-		var int2 = (Math.random() * (howard.length - 0 + 1) ) << 0 // For random images
+		var int1 = (Math.random() * (responses.length) ) << 0 // For random responses
+		var int2 = (Math.random() * (howard.length) ) << 0 // For random images
 
-		msg.reply("howard deez nutz " + responses[int1], {files: [howard[int2]]});
+		msg.channel.send("howard deez nutz " + responses[int1], {files: [howard[int2]]});
 	},
 };
