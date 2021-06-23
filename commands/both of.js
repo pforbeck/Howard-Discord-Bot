@@ -1,9 +1,9 @@
 module.exports = {
-	name: 'bofa',
-	description: 'bofa',
+	name: 'both of',
+	description: 'both of',
 	execute(msg) {
-		var int = (Math.random() * (responses.length - 0 + 1) ) << 0
 		var responses = ["hmmmm ", "tasty ", "yikers ", "my highschool CS teacher ladies and gentlemen ", "sus ", "bonk go to horny jail "];
-		msg.reply("bofa " + responses[int]);
+		var int = (Math.random() * (responses.length) ) << 0
+		msg.channel.send("bofa " + responses[int]);
 	},
 };
