@@ -7,7 +7,7 @@ module.exports = {
 		"./command_additional_files/who asked/howard_with_gun.png", 
 		"./command_additional_files/who asked/40f.png", 
 		"./command_additional_files/who asked/692.png", 
-		"./command_additional_files/who asked/HowardFear.png"];
+		"./command_additional_files/who asked/f9a.jpg"];
 
 		var int1 = (Math.random() * (responses.length) ) << 0
 		var int2 = (Math.random() * (who_asked.length) ) << 0
