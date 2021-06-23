@@ -25,10 +25,18 @@ Bot responds to:
   - Suck my
   - Wendys
 
+## Support
+Contact me at pat@forbeck.com or open an issue.
+
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
+## Roadmap
 Currently working on adding commands and functionality to the bot.
+If you have ideas make a pull request or contact me (see support).
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
+
+## Project Status
+Alive and well. (June 22nd, 2021)
