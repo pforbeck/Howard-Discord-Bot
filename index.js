@@ -20,12 +20,14 @@ var announcedOW = false // Variable to see if the command should send a message 
 var playingOW = false // Variable to see if the user is playing Overwatch
 function gamerMoments(){ 
   let member = client.users.cache.find(user => user.id == config.MY_ID) // Addresses a user
-  let server = client.guilds.cache.find(guild => guild.id == config.TESTING_SERVER_ID) // Addresses the server
-  let text_channel = client.channels.cache.find(channel => channel.id == config.TESTING_CHANNEL_ID) // Addresses a text channel
+
+  let server = client.guilds.cache.find(guild => guild.id == config.LIVE_SERVER_ID) // Addresses the server
+  let text_channel = client.channels.cache.find(channel => channel.id == config.LIVE_CHANNEL_ID) // Addresses a text channel
+
   if (member.id == config.MY_ID) { // Checks for the Discord ID of a specific user
     var activityArr = []; // Creates an Array to store the Activity Object
     activityArr = member.presence.activities // Fills the array with the users current Activity object(s)
-    if (server.id == config.TESTING_SERVER_ID){ // Checks for the Discord ID of a specific server
+    if (server.id == config.LIVE_SERVER_ID){ // Checks for the Discord ID of a specific server
       if (member.presence.status == 'online' || member.presence.status == 'dnd' || member.presence.status == 'idle'){ // User is online or idle
         if (activityArr.length <= 1){ // Checks if an activity is possibly active
           announcedOW = false; // Bot has announced user is playing Overwatch variable is reset
@@ -40,7 +42,7 @@ function gamerMoments(){
               return
             }
             if (playingOW == true && announcedOW == false){ // User is playing Overwatch but it has not been announced to the server
-              var text = "It is time for me to throw fellow gamers"; // Message is drafted
+              var text = "It is time for me to throw in Overwatch fellow gamers"; // Message is drafted
               text_channel.send(text); // Message is sent
               announcedOW = true; // Sets OW Announced to 'true'
               return
@@ -71,8 +73,9 @@ function gamerMoments(){
 // Bot is ready to use
 client.on('ready', () => { 
   client.user.setActivity('Ape Escape', { type: 'PLAYING' }) // Sets activity
+  gamerMoments() // Executes "gamerMoments" on startup
   if (!announcedOW){
-    setInterval(() => (gamerMoments()), 20000) // Executes the "gamerMoments" command every 3 minutes
+    setInterval(() => (gamerMoments()), 180000) // Executes the "gamerMoments" command every 3 minutes
   }
   console.log(`Logged in as ${client.user.tag}!`); // Logs that the bot is online
   });
