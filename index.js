@@ -2,6 +2,7 @@ const fs = require('fs');
 const Discord = require("discord.js"); // A JS implementation of the Discord API
 const shell = require('shelljs'); // To execute shell commands
 const config = require("./config.json"); // Handles private variables
+const request = require('request'); // Handles requests
 
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
@@ -70,6 +71,10 @@ function gamerMoments(){
   }
 }
 
+function capitalizeFirstLetter(string) { // Capitalizes first letter of any given string
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
 // Bot is ready to use
 client.on('ready', () => { 
   client.user.setActivity('Ape Escape', { type: 'PLAYING' }) // Sets activity
@@ -78,7 +83,7 @@ client.on('ready', () => {
     setInterval(() => (gamerMoments()), 180000) // Executes the "gamerMoments" command every 3 minutes
   }
   console.log(`Logged in as ${client.user.tag}!`); // Logs that the bot is online
-  });
+});
 
 // Bot is dead (sadge)
 client.on('error', (err) => { 
@@ -109,6 +114,32 @@ client.on('message', msg => {
   if (msg.content == "!stopmc"){
     msg.reply("MC Server is dead...");
     shell.exec('bash -c /home/pat/git-projects/Howard-Discord-Bot/commands/stopmc.sh')
+  }
+
+  // Checks Github Status
+  if (msg.content == "!github"){
+    request('https://www.githubstatus.com/',  { json: true }, (err, res, body) => {
+      let githubStatus = new Discord.MessageEmbed()
+	    .setColor('#0099ff')
+	    .setTitle('GitHub Status')
+	    .setURL(body.page.url)
+	    .setThumbnail('https://i.imgur.com/O3WvuHp.png')
+	    .addFields(
+        { name: 'GitHub System Status', value: body.status.description},
+        { name: '\u200B', value: '\u200B' },
+	    	{ name: body.components[0].name, value: capitalizeFirstLetter(body.components[0].status), inline: true },
+	    	{ name: body.components[1].name, value: capitalizeFirstLetter(body.components[1].status), inline: true },
+		    { name: body.components[2].name, value: capitalizeFirstLetter(body.components[2].status), inline: true },
+        { name: body.components[4].name, value: capitalizeFirstLetter(body.components[4].status), inline: true },
+		    { name: body.components[5].name, value: capitalizeFirstLetter(body.components[5].status), inline: true },
+        { name: body.components[6].name, value: capitalizeFirstLetter(body.components[6].status), inline: true },
+		    { name: body.components[7].name, value: capitalizeFirstLetter(body.components[7].status), inline: true },
+        { name: body.components[8].name, value: capitalizeFirstLetter(body.components[8].status), inline: true },
+	    )
+	    .setTimestamp()
+	    .setFooter('Brought to you by Howard', 'https://i.imgur.com/O3WvuHp.png');
+      msg.channel.send(githubStatus);
+    });
   }
 
   // Checks that the incoming message has the specified prefix and does not originate from the bot
