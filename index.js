@@ -1,7 +1,7 @@
 const fs = require('fs');
-const jQuery = require('jQuery');
 const Discord = require("discord.js"); // A JS implementation of the Discord API
 const config = require("./config.json"); // Handles private variables
+const ow = require("./ow.json"); // Handles private variables
 
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
@@ -9,20 +9,80 @@ client.commands = new Discord.Collection();
 // Logs the bot in
 client.login(config.BOT_TOKEN); 
 
-let server = client.guilds.cache.find(guild => guild.id == config.TESTING_SERVER_ID) // Addresses the server
-let text_channel = client.channels.cache.find(channel => channel.id == config.TESTING_CHANNEL_ID) // Addresses a text channel
+// Function to check if a specific user is online and playing Overwatch and then send a message accordingly.
+// Command is run every 3 minutes with checks to make sure the message is sent more than once
+// Does NOT use the Discord presenceUpdate() function as it is not triggered when Activity starts, stops, or changes
+// Can be extended to other games or Activities with Discord Integration.
+// Addresses a specific server, specific text channel, specific user, specific users activity and status
+// NOTE: This may not cover some edge cases but is believed to work for the most part
 
-let data = "https://ow-api.com/v1/stats/pc/us/EZPickens-1244/profile"
+let server = client.guilds.cache.find(guild => guild.id == config.LIVE_SERVER_ID) // Addresses the server
+let text_channel = client.channels.cache.find(channel => channel.id == config.LIVE_CHANNEL_ID) // Addresses a text channel
 
-fs.writeFile('overwatch.json', data, (err) => {
-      
-    // In case of a error throw err.
-    if (err) throw err;
-})
+let patrickID = client.users.cache.find(user => user.id == config.MY_ID) // Addresses a user
+let patrick = {name:"Patrick", message:"It is time for me to throw in Overwatch fellow gamers", announcedOW:false, playingOW:false}; // Addresses a user
+let quintonID = client.users.cache.find(user => user.id == config.QUIN_ID) // Addresses a user
+let quinton = {name:"Quinton", message:"\"I'm gonna do a line in overwatch\" -Quin2021", announcedOW:false, playingOW:false}; // Addresses a user
+
+let functionUser = [patrickID, quintonID]
+
+function gamerMoments(x){ 
+  var activityArr = []; // Creates an Array to store the Activity Object
+  if (functionUser[x].presence.status == 'online'){
+    // User is online or idle
+    activityArr = functionUser[x].presence.activities // Fills the array with the users current Activity object(s)
+    if (activityArr.length <= 1){ 
+      // Checks if an activity is possibly active
+      functionUser[x].announcedOW = false; // Bot has announced user is playing Overwatch variable is reset
+      functionUser[x].playingOW = false; // User playing Overwatch variable is reset
+      return
+    }
+    for (var i = 0; i < activityArr.length; i++){ 
+      // Loops through all Activity object(s) in the array since there are more than 1
+      if (activityArr[i].name == 'Overwatch'){ 
+        // Checks if the current Activity object being checked contains the name Overwatch
+        functionUser[x].playingOW = true; // playingOW is set to true since the user is playing Overwatch
+        if (functionUser[x].announcedOW == true){ 
+          // User is playing Overwatch and it has been announced to the server, do nothing
+          return
+        }
+        else{ 
+          // User is playing Overwatch but it has not been announced to the server
+          shell.exec('curl -o ow.json https://ow-api.com/v1/stats/pc/us/EZPickens-1244/profile')
+          var text = "It is time for me to throw in Overwatch fellow gamers"; // Message is drafted
+          text_channel.send(text); // Message is sent
+          functionUser[x].announcedOW = true; // Sets OW Announced to 'true'
+          return
+        }
+        }else{ 
+          // The user has not been detected to be playing Overwatch
+          // This will be set off once for the first Activity object but should correct itself when it detects Overwatch is being played by exiting the loop and setting 'playingOW' to 'true'
+          functionUser[x].playingOW = false;
+          functionUser[x].announcedOW = false; // Sets OW Announced to 'false'
+        }
+      }
+    if (!functionUser[x].playingOW){ 
+      // After looping through the for loop, if the 'playingOW' variable is still false, the user shouldn't be playing Overwatch and the code below is executed
+      functionUser[x].playingOW = false; // Changes playingOW to false
+      functionUser[x].announcedOW = false; // Changes announcedOW to false since playingOW is false
+    }
+  }else{ 
+    // User is offline or idle or an error occured
+    functionUser[x].playingOW = false; // Changes playingOW to false
+    functionUser[x].announcedOW = false; // Changes announcedOW to false since playingOW is false
+    return
+  }
+}
 
 // Bot is ready to use
-client.on('ready', () => { 
+client.on('ready', () => {
   client.user.setActivity('Ape Escape', { type: 'PLAYING' }) // Sets activity
+  setInterval(() => ( // Runs this command every 3 minutes
+    for (var x = 0; x < functionUser.length; x++){ // Loops through the functionUser array
+      if (!functionUser[x].announcedOW){ // Checks if user has announced OW status
+        gamerMoments(x) // Executes 'gamerMoments' if they don't
+      }
+    }), 180000)
   console.log(`Logged in as ${client.user.tag}!`); // Logs that the bot is online
 });
 
