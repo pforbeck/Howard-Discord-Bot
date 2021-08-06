@@ -96,6 +96,8 @@ for(const file of commandFiles){
 // Code for calling commands (user says ping, we say pong)
 client.on('message', msg => {
 
+  var commands = 3 // number of commands a user can execute per message
+
   // Checks that the incoming message has the specified prefix and does not originate from the bot
   if ((!msg.content.startsWith(config.PREFIX) && !msg.content.startsWith(config.PREFIX2)) || msg.author.bot) return;
 
@@ -113,11 +115,15 @@ client.on('message', msg => {
         // Attemps to retrieve and execute a one word file associated with the command
         client.commands.get(args[i]).execute(msg, args);
         console.log("- yea");
+        commands--;
+        if (commands < 1) { i = args.length }
       } catch (error) {
         try {
           // Attemps to retrieve and execute a two word file associated with the command
           client.commands.get(args[i] + " " + args[i+1]).execute(msg, args);
           console.log("- yea");
+          commands--;
+          if (commands < 1) { i = args.length }
         } catch (error) {
           // The word doesn't have a corresponding ".js" file or an exception occured
           console.log("- nah");
