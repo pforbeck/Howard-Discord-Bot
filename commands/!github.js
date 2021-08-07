@@ -30,7 +30,7 @@ module.exports = {
 		{ name: body.components[8].name, value: capitalizeFirstLetter(body.components[8].status), inline: true },
 		)
 		.setTimestamp()
-		.setFooter('Brought to you by Howard', 'https://i.imgur.com/O3WvuHp.png');
+		.setFooter('Brought to you by Howard', 'https://i.imgur.com/wdDNd67.png');
 		msg.channel.send(githubStatus);
 		});	
 	},
