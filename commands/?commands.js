@@ -9,7 +9,7 @@ module.exports = {
 		.setAuthor('Howard Bot', 'https://i.imgur.com/wdDNd67.png')
 		.setThumbnail('https://i.imgur.com/wdDNd67.png')
 		.addFields(
-		{ name: 'Commands', value: '!github\n!startmc\n!stopmc\n?commands\nape escape\nboth of\ncandice\ncd\ndragon\nfizzle\ngetka\nhandful\nharambe\nhorny\nhoward\nimagine dragons\nlick my\noh really\nparody\npong\nsadge\nstigma\nsuck my\nwendys\nwho asked\nxqc'},
+		{ name: 'Commands', value: '?commands\n!github\nape escape\nboth of\ncandice\ncd\ndragon\nfizzle\ngetka\nhandful\nharambe\nhorny\nhoward\nimagine dragons\nlick my\noh really\nparody\npong\nsadge\nstigma\nsuck my\nwendys\nwho asked\nxqc'},
 		)
 		.setTimestamp()
 		.setFooter('Brought to you by Howard', 'https://i.imgur.com/wdDNd67.png');
