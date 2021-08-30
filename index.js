@@ -18,14 +18,14 @@ var announcedOW = false // Variable to see if the command should send a message 
 var playingOW = false // Variable to see if the user is playing Overwatch
 function gamerMoments(){ 
   let member = client.users.cache.find(user => user.id == config.MY_ID) // Addresses a user
-
   let server = client.guilds.cache.find(guild => guild.id == config.LIVE_SERVER_ID) // Addresses the server
   let text_channel = client.channels.cache.find(channel => channel.id == config.LIVE_CHANNEL_ID) // Addresses a text channel
 
   var activityArr = []; // Creates an Array to store the Activity Object
-  if (member.presence.status == 'online' || member.presence.status == 'dnd' || member.presence.status == 'idle'){
+  if (member.presence.status == 'online'){
     // User is online or idle
     activityArr = member.presence.activities // Fills the array with the users current Activity object(s)
+    console.log(activityArr)
     if (activityArr.length <= 1){ 
       // Checks if an activity is possibly active
       announcedOW = false; // Bot has announced user is playing Overwatch variable is reset
@@ -38,15 +38,14 @@ function gamerMoments(){
         // Checks if the current Activity object being checked contains the name Overwatch
         playingOW = true; // playingOW is set to true since the user is playing Overwatch
         if (announcedOW == true){ 
-          // User is playing Overwatch and it has been announced to the server, do nothing
-          return
+          return // User is playing Overwatch and it has been announced to the server, do nothing
         }
         else{ 
           // User is playing Overwatch but it has not been announced to the server
           var text = "It is time for me to throw in Overwatch fellow gamers"; // Message is drafted
           text_channel.send(text); // Message is sent
-            announcedOW = true; // Sets OW Announced to 'true'
-            return
+          announcedOW = true; // Sets OW Announced to 'true'
+          return
           }
         }else{ 
           // The user has not been detected to be playing Overwatch
@@ -73,7 +72,7 @@ client.on('ready', () => {
   client.user.setActivity('Ape Escape', { type: 'PLAYING' }) // Sets activity
   gamerMoments() // Executes "gamerMoments" on startup
   if (!announcedOW){
-    setInterval(() => (gamerMoments()), 180000) // Executes the "gamerMoments" command every 3 minutes
+    setInterval(() => (gamerMoments()), 72000) // Executes the "gamerMoments" command every 3 minutes
   }
   console.log(`Logged in as ${client.user.tag}!`); // Logs that the bot is online
 });
