@@ -8,6 +8,7 @@ client.commands = new Discord.Collection();
 // Logs the bot in
 client.login(config.BOT_TOKEN); 
 
+/*
 // Function to check if a specific user is online and playing Overwatch and then send a message accordingly.
 // Command is run every 3 minutes with checks to make sure the message is sent more than once
 // Does NOT use the Discord presenceUpdate() function as it is not triggered when Activity starts, stops, or changes
@@ -66,14 +67,16 @@ function gamerMoments(){
       return
     }
 }
+*/
 
 // Bot is ready to use
 client.on('ready', () => { 
   client.user.setActivity('Ape Escape', { type: 'PLAYING' }) // Sets activity
-  gamerMoments() // Executes "gamerMoments" on startup
+  /*gamerMoments() // Executes "gamerMoments" on startup
   if (!announcedOW){
     setInterval(() => (gamerMoments()), 72000) // Executes the "gamerMoments" command every 3 minutes
   }
+  */
   console.log(`Logged in as ${client.user.tag}!`); // Logs that the bot is online
 });
 
