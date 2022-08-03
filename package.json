@@ -1,12 +1,10 @@
 {
   "dependencies": {
-    "discord.js": "^12.5.3",
-    "fs": "0.0.1-security",
+    "discord.js": "^13.8.0",
+    "fs": "^0.0.1-security",
     "jquery": "^3.6.0",
-    "os": "^0.1.1",
-    "random-puppy": "^1.1.0",
-    "request": "^2.88.2",
-    "shelljs": "^0.8.4"
+    "os": "^0.1.2",
+    "request": "^2.88.2"
   },
   "scripts": {
     "start": "node '/home/pat/git-projects/Howard-Discord-Bot/index.js'"
